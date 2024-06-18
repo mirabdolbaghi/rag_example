@@ -24,7 +24,7 @@ docker-compose up -d
 ## API Endpoints
 
 ## Create Collection:
-#Request:
+# Request:
 ```
 Method: PUT
 Endpoint: /collections
@@ -34,7 +34,7 @@ Body:JSON
   "distance": "Cosine", // Cosine/Dot/Euclid method similarity for vectors
 }
 ```
-#Response:
+# Response:
 Status code: 201 (Created) on success
 ```
 {
@@ -42,20 +42,20 @@ Status code: 201 (Created) on success
 }
 ```
 ## Get Collection Names:
-#Request:
+# Request:
 ```
 Method: GET
 Endpoint: /collections
 ```
 
-#Response:
+# Response:
 Status code: 200 (OK)
 ```
 ["string", ...]  // Array of collection names stored in the database
 ```
 
 ## Retrieve from Database:
-#Request:
+# Request:
 ```
 Method: POST
 Endpoint: /retrieve
@@ -67,7 +67,7 @@ Body:JSON
   "limit": 1 // perpage limits
 }
 ```
-#Response:
+# Response:
 Status code: 200 (OK).
 ```
 {
@@ -80,7 +80,7 @@ Status code: 200 (OK).
 }
 ```
 ## Chunk Text and Embed:
-#Request:
+# Request:
 ```
 Method: POST
 Endpoint: /collections/
@@ -92,7 +92,7 @@ Body:JSON
   "overlap": integer (optional)  // ovelap charaters for chunking  (default: 20)
 }
 ```
-#Response:
+# Response:
 Status code: 200 (OK) on success, or an error code with an appropriate message on failure.
 Body:
 JSON
@@ -104,7 +104,7 @@ JSON
 ```
 
 ## Retrieval-Augmented Generation (RAG):
-#Request:
+# Request:
 ```
 Method: POST
 Endpoint: /generate
@@ -116,14 +116,14 @@ Body:JSON
   "temperature": float (optional)  // Temperature for controlling randomness in generation (default: 1.0)
 }
 ```
-Response:
+# Response:
 Status code: 200 (OK) 
 ```
 {
   "generated_text": "string"  // Generated text based on the prompt and retrieved documents
 }
 ```
-##Swagger
+## Swagger
 after docker container is running go to:
 ```
 Method: GET
