@@ -6,9 +6,9 @@ This document describes a simple backend API for implementing Retrieval-Augmente
 * api docs
 * swagger
   
-## Architecture
+# Architecture
 ![Alt Text](/schema.jpg)
-## installation
+# installation
 - git clone
 - env.example -> .env
     *  DEBUG=false // show errors
@@ -21,10 +21,10 @@ This document describes a simple backend API for implementing Retrieval-Augmente
 docker-compose up -d
 ```
 
-## API Endpoints
+# API Endpoints
 
-## Create Collection:
-# Request:
+# Create Collection:
+## R equest:
 ```
 Method: PUT
 Endpoint: /collections
@@ -34,28 +34,28 @@ Body:JSON
   "distance": "Cosine", // Cosine/Dot/Euclid method similarity for vectors
 }
 ```
-# Response:
+## R esponse:
 Status code: 201 (Created) on success
 ```
 {
   "status": "string"
 }
 ```
-## Get Collection Names:
-# Request:
+# Get Collection Names:
+## R equest:
 ```
 Method: GET
 Endpoint: /collections
 ```
 
-# Response:
+## R esponse:
 Status code: 200 (OK)
 ```
 ["string", ...]  // Array of collection names stored in the database
 ```
 
-## Retrieve from Database:
-# Request:
+## R etrieve from Database:
+## R equest:
 ```
 Method: POST
 Endpoint: /retrieve
@@ -67,7 +67,7 @@ Body:JSON
   "limit": 1 // perpage limits
 }
 ```
-# Response:
+## R esponse:
 Status code: 200 (OK).
 ```
 {
@@ -79,8 +79,8 @@ Status code: 200 (OK).
   ]
 }
 ```
-## Chunk Text and Embed:
-# Request:
+# Chunk Text and Embed:
+## R equest:
 ```
 Method: POST
 Endpoint: /collections/
@@ -92,7 +92,7 @@ Body:JSON
   "overlap": integer (optional)  // ovelap charaters for chunking  (default: 20)
 }
 ```
-# Response:
+## R esponse:
 Status code: 200 (OK) on success, or an error code with an appropriate message on failure.
 Body:
 JSON
@@ -103,8 +103,8 @@ JSON
 }
 ```
 
-## Retrieval-Augmented Generation (RAG):
-# Request:
+## R etrieval-Augmented Generation (RAG):
+## R equest:
 ```
 Method: POST
 Endpoint: /generate
@@ -116,14 +116,14 @@ Body:JSON
   "temperature": float (optional)  // Temperature for controlling randomness in generation (default: 1.0)
 }
 ```
-# Response:
+## R esponse:
 Status code: 200 (OK) 
 ```
 {
   "generated_text": "string"  // Generated text based on the prompt and retrieved documents
 }
 ```
-## Swagger
+# Swagger
 after docker container is running go to:
 ```
 Method: GET
