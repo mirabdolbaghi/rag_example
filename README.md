@@ -23,20 +23,17 @@ docker-compose up -d
 ## API Endpoints
 
 ## Create Collection:
-Request:
+#Request:
 ```
 Method: PUT
 Endpoint: /collections
-```
 Body:JSON
-```
 {
   "collection_name": "string", // Name of the collection
   "distance": "Cosine", // Cosine/Dot/Euclid method similarity for vectors
 }
 ```
-
-Response:
+#Response:
 Status code: 201 (Created) on success
 ```
 {
@@ -44,23 +41,24 @@ Status code: 201 (Created) on success
 }
 ```
 ## Get Collection Names:
+#Request:
 ```
 Method: GET
 Endpoint: /collections
 ```
 
-Response:
+#Response:
 Status code: 200 (OK)
 ```
 ["string", ...]  // Array of collection names stored in the database
 ```
 
 ## Retrieve from Database:
-
+#Request:
+```
 Method: POST
 Endpoint: /retrieve
 Body:JSON
-```
 {
   "collection_name": "string", // Name of the collection
   "prompt": "string",  // Prompt for generation
@@ -68,7 +66,7 @@ Body:JSON
   "limit": 1 // perpage limits
 }
 ```
-Response:
+#Response:
 Status code: 200 (OK).
 ```
 {
@@ -81,15 +79,11 @@ Status code: 200 (OK).
 }
 ```
 ## Chunk Text and Embed:
-Request:
+#Request:
 ```
 Method: POST
 Endpoint: /collections/
-Path Parameter:
-collectionName: Name of the collection to process.
-```
- Body:JSON
- ```
+Body:JSON
 {
   "collection_name": "string", // Name of the collection
   "text": "string",  // Text to be chunked and embedded
@@ -97,10 +91,8 @@ collectionName: Name of the collection to process.
   "overlap": integer (optional)  // ovelap charaters for chunking  (default: 20)
 }
 ```
-Response:
-```
+#Response:
 Status code: 200 (OK) on success, or an error code with an appropriate message on failure.
-```
 Body:
 JSON
 ```
@@ -111,14 +103,11 @@ JSON
 ```
 
 ## Retrieval-Augmented Generation (RAG):
+#Request:
 ```
 Method: POST
 Endpoint: /generate
-```
-
-Request Body:
-JSON
-```
+Body:JSON
 {
   "prompt": "string",  // Prompt for generation
   "collection_name": "string",  // Name of the collection to retrieve from
@@ -126,8 +115,6 @@ JSON
   "temperature": float (optional)  // Temperature for controlling randomness in generation (default: 1.0)
 }
 ```
-Use code with caution.
-content_copy
 Response:
 Status code: 200 (OK) 
 ```
