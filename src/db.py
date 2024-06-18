@@ -9,7 +9,7 @@ import grpc
 from os import environ
 
 qdrant_client = QdrantClient(host=environ["QDRANT_CNAME"], https=False, port=6333, grpc_port=6334, prefer_grpc=True, api_key=environ["QDRANT_API_KEY"])
-model = SentenceTransformer(environ["TRANSFORMER_MODEL"])
+model = SentenceTransformer(environ["EMBEDDING_MODEL"])
 
 def exception_handler(function):
     def qdrant_exception_handler(*args, **kwargs):

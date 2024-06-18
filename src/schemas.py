@@ -60,7 +60,7 @@ class HnswConfig(BaseModel):
 
 class CreateCollectionRequests(BaseModel):
     collection_name: str
-    size: int = environ["TRANSFORMER_SIZE"]
+    size: int = environ["EMBEDDING_SIZE"]
     distance: DistanceMetric
     hnsw_config: HnswConfig | None = HnswConfig()
 
