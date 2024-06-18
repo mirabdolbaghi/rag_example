@@ -24,7 +24,7 @@ docker-compose up -d
 # API Endpoints
 
 # Create Collection:
-## R equest:
+## Request:
 ```
 Method: PUT
 Endpoint: /collections
@@ -34,7 +34,7 @@ Body:JSON
   "distance": "Cosine", // Cosine/Dot/Euclid method similarity for vectors
 }
 ```
-## R esponse:
+## Response:
 Status code: 201 (Created) on success
 ```
 {
@@ -42,20 +42,20 @@ Status code: 201 (Created) on success
 }
 ```
 # Get Collection Names:
-## R equest:
+## Request:
 ```
 Method: GET
 Endpoint: /collections
 ```
 
-## R esponse:
+## Response:
 Status code: 200 (OK)
 ```
 ["string", ...]  // Array of collection names stored in the database
 ```
 
-## R etrieve from Database:
-## R equest:
+## Retrieve from Database:
+## Request:
 ```
 Method: POST
 Endpoint: /retrieve
@@ -67,7 +67,7 @@ Body:JSON
   "limit": 1 // perpage limits
 }
 ```
-## R esponse:
+## Response:
 Status code: 200 (OK).
 ```
 {
@@ -80,7 +80,7 @@ Status code: 200 (OK).
 }
 ```
 # Chunk Text and Embed:
-## R equest:
+## Request:
 ```
 Method: POST
 Endpoint: /collections/
@@ -92,7 +92,7 @@ Body:JSON
   "overlap": integer (optional)  // ovelap charaters for chunking  (default: 20)
 }
 ```
-## R esponse:
+## Response:
 Status code: 200 (OK) on success, or an error code with an appropriate message on failure.
 Body:
 JSON
@@ -103,8 +103,8 @@ JSON
 }
 ```
 
-## R etrieval-Augmented Generation (RAG):
-## R equest:
+## Retrieval-Augmented Generation (RAG):
+## Request:
 ```
 Method: POST
 Endpoint: /generate
@@ -116,7 +116,7 @@ Body:JSON
   "temperature": float (optional)  // Temperature for controlling randomness in generation (default: 1.0)
 }
 ```
-## R esponse:
+## Response:
 Status code: 200 (OK) 
 ```
 {
