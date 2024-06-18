@@ -2,22 +2,25 @@ from transformers import AutoTokenizer, AutoModelForCausalLM
 import torch
 import gc
 from os import environ
+from transformers.utils import is_flash_attn_2_available
+def init_llm(model_name=environ["LLM_MODEL"]):
+    tokenizer = AutoTokenizer.from_pretrained(model_name)
+    if is_flash_attn_2_available():
+        model = AutoModelForCausalLM.from_pretrained(model_name,torch_dtype=torch.float16,
+        attn_implementation="flash_attention_2")
+    else:
+        model = AutoModelForCausalLM.from_pretrained(model_name,torch_dtype=torch.float16)
+    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+    if torch.cuda.is_available():
+        try:
+            model.to(device)
+        except torch.cuda.OutOfMemoryError:
+            model = AutoModelForCausalLM.from_pretrained(model_name,torch_dtype="auto")
+    return model, tokenizer
 
-tokenizer = AutoTokenizer.from_pretrained(environ["LLM_MODEL"])
-
-model = AutoModelForCausalLM.from_pretrained(environ["LLM_MODEL"],torch_dtype=torch.float16)
-
-device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-if torch.cuda.is_available():
-    try:
-        model.to(device)
-    except torch.cuda.OutOfMemoryError:
-        model = AutoModelForCausalLM.from_pretrained(environ["LLM_MODEL"],torch_dtype="auto")
 
 
-
-
-
+model, tokenizer = init_llm()
 def generate_response(query, context=None, temperature:float=0.1, max_length=50, num_beams=5):
     if torch.cuda.is_available():
         gc.collect()

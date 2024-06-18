@@ -12,9 +12,17 @@ from schemas import processTextRequest, processTextResponse, \
 app = FastAPI()
 app.add_exception_handler(Exception, unhandled_exception_handler)
 
+@app.get("/collections")
+def get_collections_list() -> List[str]:
+    return get_collection_names()
 
-@app.post("/process_text/")
-def process_text(request: processTextRequest)-> processTextResponse:
+@app.put("/collections")
+def make_collection(reuest:CreateCollectionRequests) -> CreateCollectionResponse:
+    create_collection(request=reuest)
+    return {"status":"success"}
+
+@app.post("/collections")
+def process_text_store_in_collection(request: processTextRequest)-> processTextResponse:
     text_chunks = list(chunk_text(request.text, request.chunk_size, request.overlap))
     
     if not text_chunks:
@@ -24,17 +32,8 @@ def process_text(request: processTextRequest)-> processTextResponse:
     return {"status": "success", "chunks_processed": len(text_chunks)}
 
 
-@app.post("/collections")
-def make_collection(reuest:CreateCollectionRequests) -> CreateCollectionResponse:
-    create_collection(request=reuest)
-    return {"status":"success"}
-
-@app.get("/collections")
-def get_collections_list() -> List[str]:
-    return get_collection_names()
-
 @app.get("/retrieve")
-def process_text(request:RetrieveRequest)-> RetrieveResponse:
+def retrieve_from_collection(request:RetrieveRequest)-> RetrieveResponse:
     return {
         "result":retieve_from_qdrant(request.collection_name,
                                request.query,
@@ -43,7 +42,7 @@ def process_text(request:RetrieveRequest)-> RetrieveResponse:
     }
 
 @app.get("/rag/")
-def process_text(query:RAGquery) -> RAGresponse:
+def retrieval_augmented_generation(query:RAGquery) -> RAGresponse:
     
     qdrant_resonse = retieve_from_qdrant(query.collection_name,query.query) 
     context =""
