@@ -4,6 +4,7 @@ This document describes a simple backend API for implementing Retrieval-Augmente
 * Architecture
 * installation
 * api docs
+* swagger
   
 ## Architecture
 ![Alt Text](/schema.jpg)
@@ -121,4 +122,10 @@ Status code: 200 (OK)
 {
   "generated_text": "string"  // Generated text based on the prompt and retrieved documents
 }
+```
+##Swagger
+after docker container is running go to:
+```
+Method: GET
+Endpoint: /docs
 ```
