@@ -6,6 +6,7 @@ This document describes a simple backend API for implementing Retrieval-Augmente
 * api docs
   
 ## Architecture
+![Alt Text](/schema.jpg)
 ## installation
 - git clone
 - env.example -> .env

@@ -32,23 +32,23 @@ def process_text_store_in_collection(request: processTextRequest)-> processTextR
     return {"status": "success", "chunks_processed": len(text_chunks)}
 
 
-@app.get("/retrieve")
+@app.post("/retrieve")
 def retrieve_from_collection(request:RetrieveRequest)-> RetrieveResponse:
     return {
         "result":retieve_from_qdrant(request.collection_name,
-                               request.query,
+                               request.prompt,
                                request.limit,
                                (request.page-1)*request.limit) 
     }
 
-@app.get("/rag/")
+@app.post("/generate")
 def retrieval_augmented_generation(query:RAGquery) -> RAGresponse:
     
-    qdrant_resonse = retieve_from_qdrant(query.collection_name,query.query) 
+    qdrant_resonse = retieve_from_qdrant(query.collection_name,query.prompt,limit=query.k) 
     context =""
     for resp in qdrant_resonse:
         context += resp["text"]
-    return {"response":generate_response(query.query,context,query.temperature,query.max_token)}
+    return {"generated_text":generate_response(query.prompt,context,query.temperature,query.max_token)}
 
 if __name__ == "__main__":
     uvicorn.run(app, host="0.0.0.0", port=8000)

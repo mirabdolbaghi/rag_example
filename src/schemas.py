@@ -11,9 +11,10 @@ class processTextRequest(BaseModel):
 
 
 class RAGquery(BaseModel):
-    query: str
+    prompt: str
     collection_name: str
     max_token: int = 100
+    k: int = 1
     temperature: float = Field(0.1, gt=0.0, lt=1.0)
 
 class processTextResponse(BaseModel):
@@ -22,7 +23,7 @@ class processTextResponse(BaseModel):
 
 
 class RAGresponse(BaseModel):
-    response: str
+    generated_text: str
 class RetrieveRaw(BaseModel):
     text:str
     score:float
@@ -30,7 +31,7 @@ class RetrieveResponse(BaseModel):
     result:List[RetrieveRaw]
 class RetrieveRequest(BaseModel):
     collection_name:str
-    query:str
+    prompt:str
     page:int=1
     limit:int=1
 
