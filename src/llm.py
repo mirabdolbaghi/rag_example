@@ -16,11 +16,12 @@ def init_llm(model_name=environ["LLM_MODEL"]):
             model.to(device)
         except torch.cuda.OutOfMemoryError:
             model = AutoModelForCausalLM.from_pretrained(model_name,torch_dtype="auto")
-    return model, tokenizer
+            device = torch.device("cpu")
+    return model, tokenizer, device
 
 
 
-model, tokenizer = init_llm()
+model, tokenizer, device = init_llm()
 def generate_response(query, context=None, temperature:float=0.1, max_length=50, num_beams=5):
     if torch.cuda.is_available():
         gc.collect()
